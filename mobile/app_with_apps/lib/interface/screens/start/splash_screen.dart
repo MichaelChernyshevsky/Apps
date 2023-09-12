@@ -1,4 +1,3 @@
-
 import 'package:app_with_apps/constants/exports/exports.dart';
 import 'package:app_with_apps/interface/routes/app_routes.dart';
 
@@ -24,8 +23,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("Notes"),
+    return const Scaffold(
+      body: Center(
+        child: Text("Some"),
+      ),
     );
   }
 }

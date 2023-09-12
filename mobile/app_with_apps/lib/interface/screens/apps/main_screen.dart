@@ -1,7 +1,9 @@
 import 'package:app_with_apps/constants/exports/exports.dart';
 import 'package:app_with_apps/constants/localization/text.dart';
 import 'package:app_with_apps/constants/models/state_enum.dart';
-import 'package:app_with_apps/interface/screens/apps/widgets/common/main_screen/mainbody_widget.dart';
+import 'package:app_with_apps/interface/screens/apps/widgets/mainbody_widget.dart';
+import 'package:app_with_apps/manager/notes/notes_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NotesScreen extends StatefulWidget {
   const NotesScreen({super.key});
@@ -12,12 +14,13 @@ class NotesScreen extends StatefulWidget {
 
 class _NotesScreenState extends State<NotesScreen> {
   AppState state = AppState.loading;
-  // DataBloc? _dataBloc;
+  NotesBloc? _bloc;
   List<dynamic> elements = [];
 
   @override
   void initState() {
-    // _dataBloc = BlocProvider.of<DataBloc>(context);
+    _bloc = BlocProvider.of<NotesBloc>(context);
+    _bloc!.add(GetNotesEvent());
     super.initState();
   }
 
@@ -31,30 +34,59 @@ class _NotesScreenState extends State<NotesScreen> {
     setState(() {});
   }
 
+  createFolder(title) => _bloc!.add(CreateFolderEvent(title: title));
+
+  Future<void> _displayTextInputDialog(BuildContext context) async {
+    String valueText = '';
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(ConstantText.creation),
+            content: TextField(
+              onChanged: (value) {
+                setState(() {
+                  valueText = value;
+                });
+              },
+              // decoration: InputDecoration(hintText: "Text Field in Dialog"),
+            ),
+            actions: <Widget>[
+              MaterialButton(
+                child: Text(ConstantText.ok),
+                onPressed: () => setState(() {
+                  createFolder(valueText);
+                  Navigator.pop(context);
+                }),
+              ),
+            ],
+          );
+        });
+  }
+
+  showCreation() => _displayTextInputDialog(context);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          // BlocListener<DataBloc, DataState>(
-          //   listener: (context, state) {
-          //     if (state is GetSuccessState) {
-          //       getData(state.notes);
-          //     } else if (state is UnSuccessState) {
-          //     } else if (state is ErrorState) {}
-          //   },
-          //   child: ElevatedButton(
-          //       onPressed: () {
-          //         _dataBloc!.add(GetNotesEvent());
-          //       },
-          //       child: Text(ConstantText.upload)),
-          // ),
-        ],
-      ),
-      body: MainBody(
-        elements: elements,
-        state: state,
-      ),
-    );
+        appBar: AppBar(
+          actions: [
+            ElevatedButton(
+                onPressed: showCreation, child: Text(ConstantText.create)),
+          ],
+        ),
+        body: BlocListener<NotesBloc, NotesState>(
+          listener: (context, state) {
+            if (state is NotesData) {
+              getData(state.notes);
+            } else if (state is NotesError) {
+            } else if (state is NotesCreateSucess) {
+            } else if (state is NotesDeleteSucess) {}
+          },
+          child: MainBody(
+            elements: elements,
+            state: state,
+          ),
+        ));
   }
 }

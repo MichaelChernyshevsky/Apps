@@ -1,9 +1,8 @@
-import 'package:app_with_apps/api/connections/common_api.dart';
-import 'package:app_with_apps/api/connections/folder_api.dart';
-import 'package:app_with_apps/api/connections/note_api.dart';
+import 'package:app_with_apps/api/notes/connections/common_api.dart';
+import 'package:app_with_apps/api/notes/connections/folder_api.dart';
+import 'package:app_with_apps/api/notes/connections/note_api.dart';
 
-
-class ServiceApi {
+class ServiceApiNotes {
   final CommonApi _commonApi = CommonApi();
   final FolderApi _folderApi = FolderApi();
   final NoteApi _noteApi = NoteApi();

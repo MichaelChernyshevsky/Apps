@@ -1,6 +1,5 @@
-
-import 'package:app_with_apps/constants/models/folder_class.dart';
-import 'package:app_with_apps/constants/models/note_class.dart';
+import 'package:app_with_apps/constants/models/notes/folder_class.dart';
+import 'package:app_with_apps/constants/models/notes/note_class.dart';
 
 get dataExample => [
       Folder(

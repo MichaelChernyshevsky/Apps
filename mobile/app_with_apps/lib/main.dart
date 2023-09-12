@@ -1,13 +1,13 @@
 import 'package:app_with_apps/constants/exports/exports.dart';
 import 'package:app_with_apps/interface/routes/app_routes.dart';
+import 'package:app_with_apps/manager/notes/notes_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 
 void main() {
   runApp(
     MultiBlocProvider(
-      providers: const  [
-        // BlocProvider<DataBloc>(create: (context) => DataBloc(true)),
+      providers: [
+        BlocProvider<NotesBloc>(create: (context) => NotesBloc()),
       ],
       child: const MyApp(),
     ),

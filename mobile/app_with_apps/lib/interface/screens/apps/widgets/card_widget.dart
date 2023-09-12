@@ -1,8 +1,6 @@
-
-
 import 'package:app_with_apps/constants/exports/exports.dart';
-import 'package:app_with_apps/constants/models/element_enum.dart';
-import 'package:app_with_apps/constants/models/folder_class.dart';
+import 'package:app_with_apps/constants/models/notes/element_enum.dart';
+import 'package:app_with_apps/constants/models/notes/folder_class.dart';
 
 class CardNotes extends StatefulWidget {
   const CardNotes({super.key, required this.element});

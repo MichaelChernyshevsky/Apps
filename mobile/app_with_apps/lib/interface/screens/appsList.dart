@@ -8,15 +8,18 @@ class Apps extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          ElevatedButton(
-            onPressed: ()=>Navigator.of(context).pushNamed(AppRoutes.notesScreen),
-            child: Text(ConstantText.notes)
-          ),
-        ],
+      appBar: AppBar(title: const Text('')),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            ElevatedButton(
+                onPressed: () =>
+                    Navigator.of(context).pushNamed(AppRoutes.notesScreen),
+                child: Text(ConstantText.notes)),
+          ],
+        ),
       ),
     );
   }
 }
-
