@@ -1,17 +1,7 @@
+import 'package:app_with_apps/constants/models/notes/notes.dart';
+
 class CommonApi {
-  Future<dynamic> getData() async {
-    return null;
-  }
-
-  Future<dynamic> deletAll() async {
-    return null;
-  }
-
-  Future<dynamic> union() async {
-    return null;
-  }
-
-  Future<dynamic> unionInFolder() async {
-    return null;
+  Future<Notes> getData() async {
+    return Notes(folders: []);
   }
 }

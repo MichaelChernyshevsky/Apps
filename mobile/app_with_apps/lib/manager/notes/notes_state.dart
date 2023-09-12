@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'notes_bloc.dart';
 
 abstract class NotesState extends Equatable {}
@@ -7,14 +8,23 @@ class NotesInitial extends NotesState {
   List<Object?> get props => [];
 }
 
-class NotesCreateSucess extends NotesState {
+class CreateSucess extends NotesState {
+  int id;
+  CreateSucess({
+    required this.id,
+  });
+
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [id];
 }
 
-class NotesDeleteSucess extends NotesState {
+class DeleteSucess extends NotesState {
+  int id;
+  DeleteSucess({
+    required this.id,
+  });
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [id];
 }
 
 class NotesError extends NotesState {
@@ -23,7 +33,7 @@ class NotesError extends NotesState {
 }
 
 class NotesData extends NotesState {
-  List<Folder> notes;
+  Notes notes;
   NotesData({
     required this.notes,
   });

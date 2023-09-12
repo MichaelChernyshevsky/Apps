@@ -1,5 +1,6 @@
 import 'package:app_with_apps/constants/exports/exports.dart';
 import 'package:app_with_apps/constants/localization/text.dart';
+import 'package:app_with_apps/constants/models/notes/folder_class.dart';
 import 'package:app_with_apps/constants/models/state_enum.dart';
 import 'package:app_with_apps/interface/screens/apps/widgets/mainbody_widget.dart';
 import 'package:app_with_apps/manager/notes/notes_bloc.dart';
@@ -15,7 +16,8 @@ class NotesScreen extends StatefulWidget {
 class _NotesScreenState extends State<NotesScreen> {
   AppState state = AppState.loading;
   NotesBloc? _bloc;
-  List<dynamic> elements = [];
+  List<Folder> elements = [];
+  String newFolder_title = '';
 
   @override
   void initState() {
@@ -24,14 +26,13 @@ class _NotesScreenState extends State<NotesScreen> {
     super.initState();
   }
 
-  getData(List<dynamic> arr) {
+  getData(List<Folder> arr) {
     if (arr.isNotEmpty) {
       elements = arr;
       state = AppState.loaded;
     } else {
       state = AppState.empty;
     }
-    setState(() {});
   }
 
   createFolder(title) => _bloc!.add(CreateFolderEvent(title: title));
@@ -56,6 +57,7 @@ class _NotesScreenState extends State<NotesScreen> {
                 child: Text(ConstantText.ok),
                 onPressed: () => setState(() {
                   createFolder(valueText);
+                  newFolder_title = valueText;
                   Navigator.pop(context);
                 }),
               ),
@@ -66,22 +68,38 @@ class _NotesScreenState extends State<NotesScreen> {
 
   showCreation() => _displayTextInputDialog(context);
 
+  addFolder(title, id) => elements.add(Folder.create(title: title, id: id));
+
+  deleteFolder(id) => null;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           actions: [
             ElevatedButton(
-                onPressed: showCreation, child: Text(ConstantText.create)),
+              onPressed: showCreation,
+              child: Text(ConstantText.create),
+            ),
           ],
         ),
         body: BlocListener<NotesBloc, NotesState>(
           listener: (context, state) {
             if (state is NotesData) {
-              getData(state.notes);
+              setState(() {
+                getData(state.notes.folders);
+              });
             } else if (state is NotesError) {
-            } else if (state is NotesCreateSucess) {
-            } else if (state is NotesDeleteSucess) {}
+              // print('error');
+            } else if (state is CreateSucess) {
+              setState(() {
+                addFolder(newFolder_title, state.id);
+              });
+            } else if (state is DeleteSucess) {
+              setState(() {
+                deleteFolder(state.id);
+              });
+            }
           },
           child: MainBody(
             elements: elements,

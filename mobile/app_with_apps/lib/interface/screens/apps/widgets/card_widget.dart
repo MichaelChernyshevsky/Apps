@@ -1,51 +1,47 @@
 import 'package:app_with_apps/constants/exports/exports.dart';
-import 'package:app_with_apps/constants/models/notes/element_enum.dart';
-import 'package:app_with_apps/constants/models/notes/folder_class.dart';
+import 'package:app_with_apps/constants/models/notes/note_class.dart';
+import 'package:app_with_apps/interface/screens/apps/note_screen.dart';
 
-class CardNotes extends StatefulWidget {
-  const CardNotes({super.key, required this.element});
+class CardFolder extends StatefulWidget {
+  const CardFolder({super.key, required this.notes, required this.title});
 
-  final dynamic element;
+  final List<Note> notes;
+  final String title;
 
   @override
-  State<CardNotes> createState() => _CardNotesState();
+  State<CardFolder> createState() => _CardFolderState();
 }
 
-class _CardNotesState extends State<CardNotes> {
-  ElementNote? element;
-  String? title;
-  dynamic additionally;
-
-  @override
-  void initState() {
-    element = widget.element is Folder ? ElementNote.folder : ElementNote.note;
-    title = widget.element.title;
-    additionally = element == ElementNote.folder
-        ? widget.element.notes
-        : widget.element.comment;
-
-    super.initState();
-  }
+class _CardFolderState extends State<CardFolder> {
+  goToNote(Note note) => Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => NoteScreen(
+                  title: note.title,
+                  description: note.description,
+                  id: note.id,
+                )),
+      );
 
   @override
   Widget build(BuildContext context) {
-    if (widget.element is Folder) {
-      return InkWell(
-        onTap: () {},
-        child: CardNote(
-          title: title!,
-        ),
-      );
-    }
-
-    return CardNote(
-      title: title!,
-    );
+    return ListView.builder(
+        shrinkWrap: true,
+        physics: const BouncingScrollPhysics(),
+        itemCount: widget.notes.length,
+        itemBuilder: (context, index) {
+          return InkWell(
+            onTap: () => goToNote(widget.notes[index]),
+            child: Card(
+              title: widget.notes[index].description,
+            ),
+          );
+        });
   }
 }
 
-class CardNote extends StatelessWidget {
-  const CardNote({
+class Card extends StatelessWidget {
+  const Card({
     super.key,
     required this.title,
   });
