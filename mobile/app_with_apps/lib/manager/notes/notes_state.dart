@@ -8,23 +8,10 @@ class NotesInitial extends NotesState {
   List<Object?> get props => [];
 }
 
-class CreateSucess extends NotesState {
-  int id;
-  CreateSucess({
-    required this.id,
-  });
-
-  @override
-  List<Object?> get props => [id];
-}
-
 class DeleteSucess extends NotesState {
-  int id;
-  DeleteSucess({
-    required this.id,
-  });
+  DeleteSucess();
   @override
-  List<Object?> get props => [id];
+  List<Object?> get props => [];
 }
 
 class NotesError extends NotesState {
@@ -32,8 +19,17 @@ class NotesError extends NotesState {
   List<Object?> get props => [];
 }
 
+class FoldersData extends NotesState {
+  List<Folder> folders;
+  FoldersData({
+    required this.folders,
+  });
+  @override
+  List<Object?> get props => [folders];
+}
+
 class NotesData extends NotesState {
-  Notes notes;
+  List<Note> notes;
   NotesData({
     required this.notes,
   });

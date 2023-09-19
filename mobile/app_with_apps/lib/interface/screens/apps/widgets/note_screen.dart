@@ -1,32 +1,33 @@
-import 'package:app_with_apps/constants/exports/exports.dart';
 import 'package:app_with_apps/constants/localization/text.dart';
-import 'package:app_with_apps/constants/models/notes/folder_class.dart';
+import 'package:app_with_apps/constants/models/notes/note_class.dart';
 import 'package:app_with_apps/constants/models/state_enum.dart';
-import 'package:app_with_apps/interface/screens/apps/widgets/mainbody_widget.dart';
 import 'package:app_with_apps/manager/notes/notes_bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class NotesScreen extends StatefulWidget {
-  const NotesScreen({super.key});
+class NoteScreen extends StatefulWidget {
+  const NoteScreen({super.key, required this.id});
+
+  final int id;
 
   @override
-  State<NotesScreen> createState() => _NotesScreenState();
+  State<NoteScreen> createState() => _NoteScreenState();
 }
 
-class _NotesScreenState extends State<NotesScreen> {
+class _NoteScreenState extends State<NoteScreen> {
   AppState state = AppState.loading;
   NotesBloc? _bloc;
-  List<Folder> elements = [];
+  List<Note> elements = [];
   String newFolder_title = '';
 
   @override
   void initState() {
     _bloc = BlocProvider.of<NotesBloc>(context);
-    _bloc!.add(GetFoldersEvent());
+    _bloc!.add(GetNotesEvent());
     super.initState();
   }
 
-  getData(List<Folder> arr) {
+  getData(List<Note> arr) {
     if (arr.isNotEmpty) {
       elements = arr;
       state = AppState.loaded;
@@ -71,19 +72,12 @@ class _NotesScreenState extends State<NotesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          actions: [
-            ElevatedButton(
-              onPressed: showCreation,
-              child: Text(ConstantText.create),
-            ),
-          ],
-        ),
+        appBar: AppBar(),
         body: BlocListener<NotesBloc, NotesState>(
           listener: (context, state) {
-            if (state is FoldersData) {
+            if (state is NotesData) {
               setState(() {
-                getData(state.folders);
+                getData(state.notes);
               });
             } else if (state is NotesError) {
               // print('error');
@@ -91,9 +85,24 @@ class _NotesScreenState extends State<NotesScreen> {
               setState(() {});
             }
           },
-          child: MainBody(
-            elements: elements,
-            state: state,
+          child: ListView.builder(
+            shrinkWrap: true,
+            physics: const BouncingScrollPhysics(),
+            itemCount: elements.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  alignment: Alignment.centerLeft,
+                  height: 50,
+                  color: Colors.grey,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: Text(elements[index].title),
+                  ),
+                ),
+              );
+            },
           ),
         ));
   }

@@ -1,7 +1,7 @@
 import 'package:app_with_apps/constants/exports/exports.dart';
 import 'package:app_with_apps/constants/models/notes/folder_class.dart';
 import 'package:app_with_apps/constants/models/state_enum.dart';
-import 'package:app_with_apps/interface/screens/apps/widgets/card_widget.dart';
+import 'package:app_with_apps/interface/screens/apps/widgets/note_screen.dart';
 
 class MainBody extends StatelessWidget {
   const MainBody({
@@ -12,6 +12,15 @@ class MainBody extends StatelessWidget {
 
   final List<Folder> elements;
   final AppState state;
+
+  goToNote(context, int id) => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => NoteScreen(
+            id: id,
+          ),
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +36,17 @@ class MainBody extends StatelessWidget {
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.all(8.0),
-            child: CardFolder(
-              notes: elements[index].notes,
-              title: elements[index].title,
+            child: InkWell(
+              onTap: () => goToNote(context, elements[index].id),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                height: 50,
+                color: Colors.grey,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20),
+                  child: Text(elements[index].title),
+                ),
+              ),
             ),
           );
         },

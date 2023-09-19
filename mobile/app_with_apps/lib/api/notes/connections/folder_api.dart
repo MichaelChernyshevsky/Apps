@@ -1,29 +1,42 @@
 import 'dart:convert';
 
+import 'package:app_with_apps/constants/models/notes/folder_class.dart';
 import 'package:app_with_apps/constants/uri.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
 class FolderApi {
-  Future<int> create(String title) async {
+  Future<void> create(String title) async {
     final body = {'title': title};
-    final Response response = await http.put(
+    final Response response = await http.post(
       Uri.parse(ConstantsUri.createFolder),
       body: jsonEncode(body),
     );
-    return response.statusCode != 200
-        ? throw "error"
-        : json.decode(response.body)['id'];
+    return response.statusCode != 200 ? throw "error" : null;
   }
 
-  Future<int> delete(int id) async {
+  Future<void> delete(int id) async {
     final body = {'id': id};
-    final Response response = await http.put(
+    final Response response = await http.delete(
       Uri.parse(ConstantsUri.deleteFolder),
       body: jsonEncode(body),
     );
-    return response.statusCode != 200
-        ? throw "error"
-        : json.decode(response.body)['id'];
+    return response.statusCode != 200 ? throw "error" : null;
+  }
+
+  Future<List<Folder>> getData() async {
+    final Response response = await http.get(
+      Uri.parse(ConstantsUri.getFolders),
+    );
+    final List list = json.decode(response.body);
+
+    List<Folder> folders = [];
+    if (list.isNotEmpty) {
+      for (final element in list) {
+        folders.add(Folder(id: element['id'], title: element['title']));
+      }
+    }
+
+    return response.statusCode != 200 ? throw "error" : folders;
   }
 }

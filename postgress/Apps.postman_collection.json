@@ -14,21 +14,12 @@
 					"name": "folder",
 					"item": [
 						{
-							"name": "create",
+							"name": "getFolders",
 							"request": {
-								"method": "POST",
+								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"title\":\"success_1\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
-									"raw": "http://127.0.0.1:5001/folder/create",
+									"raw": "http://127.0.0.1:5001/apps/folders",
 									"protocol": "http",
 									"host": [
 										"127",
@@ -38,8 +29,41 @@
 									],
 									"port": "5001",
 									"path": [
-										"folder",
-										"create"
+										"apps",
+										"folders"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\":\"qwqeqwew\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:5001/apps/notes/createFolder",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5001",
+									"path": [
+										"apps",
+										"notes",
+										"createFolder"
 									]
 								}
 							},
@@ -50,33 +74,9 @@
 							"request": {
 								"method": "DELETE",
 								"header": [],
-								"url": {
-									"raw": "http://127.0.0.1:5001/folder/2/delete",
-									"protocol": "http",
-									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
-									],
-									"port": "5001",
-									"path": [
-										"folder",
-										"2",
-										"delete"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "update",
-							"request": {
-								"method": "PUT",
-								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"title\":\"new_title_1\"\n}",
+									"raw": "",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -84,7 +84,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://127.0.0.1:5001/folder/2/update",
+									"raw": "http://127.0.0.1:5001/apps/notes/folder/3/delete",
 									"protocol": "http",
 									"host": [
 										"127",
@@ -94,9 +94,11 @@
 									],
 									"port": "5001",
 									"path": [
+										"apps",
+										"notes",
 										"folder",
-										"2",
-										"update"
+										"3",
+										"delete"
 									]
 								}
 							},
@@ -114,7 +116,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"title\":\"new\",\n    \"comment\":\"new_comment\"\n}",
+									"raw": "{\n    \"title\":\"new\",\n    \"description\":\"new_comment\",\n    \"id_folder\":1\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -122,7 +124,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://127.0.0.1:5001/folder/1/note/create",
+									"raw": "http://127.0.0.1:5001/apps/notes/create",
 									"protocol": "http",
 									"host": [
 										"127",
@@ -132,9 +134,8 @@
 									],
 									"port": "5001",
 									"path": [
-										"folder",
-										"1",
-										"note",
+										"apps",
+										"notes",
 										"create"
 									]
 								}
@@ -142,21 +143,12 @@
 							"response": []
 						},
 						{
-							"name": "update",
+							"name": "getNotes",
 							"request": {
-								"method": "PUT",
+								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"title\":\"title_updated\",\n    \"comment\":\"commment_updated\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
-									"raw": "http://127.0.0.1:5001/folder/1/note/1/update",
+									"raw": "http://127.0.0.1:5001/apps/notes/notes",
 									"protocol": "http",
 									"host": [
 										"127",
@@ -166,11 +158,9 @@
 									],
 									"port": "5001",
 									"path": [
-										"folder",
-										"1",
-										"note",
-										"1",
-										"update"
+										"apps",
+										"notes",
+										"notes"
 									]
 								}
 							},
@@ -182,7 +172,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://127.0.0.1:5001/folder/1/note/1/delete",
+									"raw": "http://127.0.0.1:5001/apps/notes/note/1/delete",
 									"protocol": "http",
 									"host": [
 										"127",
@@ -192,8 +182,8 @@
 									],
 									"port": "5001",
 									"path": [
-										"folder",
-										"1",
+										"apps",
+										"notes",
 										"note",
 										"1",
 										"delete"
@@ -207,90 +197,6 @@
 				{
 					"name": "common",
 					"item": [
-						{
-							"name": "read",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://127.0.0.1:5001/readNotes",
-									"protocol": "http",
-									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
-									],
-									"port": "5001",
-									"path": [
-										"readNotes"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "uniunInFolder",
-							"request": {
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"idFolder\" : 1,\n    \"folders\" : [2]\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://127.0.0.1:5001/unionInFolder",
-									"protocol": "http",
-									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
-									],
-									"port": "5001",
-									"path": [
-										"unionInFolder"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "union",
-							"request": {
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"title\" : \"union_12\",\n    \"folders\" : [1,2]\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://127.0.0.1:5001/union",
-									"protocol": "http",
-									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
-									],
-									"port": "5001",
-									"path": [
-										"union"
-									]
-								}
-							},
-							"response": []
-						},
 						{
 							"name": "deleteAll",
 							"request": {

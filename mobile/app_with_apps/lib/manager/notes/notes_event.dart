@@ -5,6 +5,11 @@ part of 'notes_bloc.dart';
 
 abstract class NotesEvent extends Equatable {}
 
+class GetFoldersEvent extends NotesEvent {
+  @override
+  List<Object?> get props => [];
+}
+
 class GetNotesEvent extends NotesEvent {
   @override
   List<Object?> get props => [];

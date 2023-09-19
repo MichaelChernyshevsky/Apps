@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 
-def create_app() -> Flask:
+def create_app()-> Flask:
     app = Flask(__name__)
     app.config[
         "SQLALCHEMY_DATABASE_URI"

@@ -8,16 +8,4 @@ class Note {
     required this.description,
     required this.id,
   });
-
-  factory Note.create({
-    required String title,
-    required String description,
-    required int id,
-  }) {
-    return Note(
-      description: description,
-      title: title,
-      id: id,
-    );
-  }
 }
