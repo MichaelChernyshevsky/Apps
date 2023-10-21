@@ -17,12 +17,10 @@ class Folder(db.Model):
         folder = Folder(
             type=title
         )
-
         db.session.add(folder)
         db.session.commit()
     @staticmethod
     def deleteFolder(id):
-        
             folder = Folder.query.filter_by(id=id).first()
             db.session.delete(folder)
             db.session.commit()
@@ -33,13 +31,9 @@ class Folder(db.Model):
 
     @staticmethod
     def getFolders():
-
-            print('-'*100)
             json_events = []
             events = Folder.query.all()
             for event in events:
-                print('-'*100)
-
                 form = {
                     "id" : event.__dict__['id'],
                     "title" : event.__dict__['type'],
