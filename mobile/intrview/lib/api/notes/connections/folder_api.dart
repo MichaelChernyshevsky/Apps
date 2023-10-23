@@ -1,42 +1,19 @@
 import 'dart:convert';
-
-import 'package:app_with_apps/constants/models/notes/folder_class.dart';
-import 'package:app_with_apps/constants/uri.dart';
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
 
-class FolderApi {
-  Future<void> create(String title) async {
-    final body = {'title': title};
-    final Response response = await http.post(
-      Uri.parse(ConstantsUri.createFolder),
-      body: jsonEncode(body),
-    );
-    return response.statusCode != 200 ? throw "error" : null;
-  }
+class WhetherApi {
+  Future<String> getWhether() async {
+    final _response = await http.get(Uri.parse(
+        'http://api.weatherapi.com/v1/current.json?key=3f893233c4354fe3ba6201612232310&q=Europe Saratov&aqi=no'));
+    if (_response.statusCode == 200) {
+      final _json = json.decode(_response.body);
 
-  Future<void> delete(int id) async {
-    final body = {'id': id};
-    final Response response = await http.delete(
-      Uri.parse(ConstantsUri.deleteFolder),
-      body: jsonEncode(body),
-    );
-    return response.statusCode != 200 ? throw "error" : null;
-  }
-
-  Future<List<Folder>> getData() async {
-    final Response response = await http.get(
-      Uri.parse(ConstantsUri.getFolders),
-    );
-    final List list = json.decode(response.body);
-
-    List<Folder> folders = [];
-    if (list.isNotEmpty) {
-      for (final element in list) {
-        folders.add(Folder(id: element['id'], title: element['title']));
-      }
+      return _json['current']['temp_c'].toString();
+    } else {
+      return 'error ${_response.statusCode}';
     }
-
-    return response.statusCode != 200 ? throw "error" : folders;
   }
 }
+
+
+      // Uri.parse('X-Gismeteo-Token: 56b30cb255.3443075' ),
