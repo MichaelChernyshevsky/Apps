@@ -15,8 +15,8 @@ class AppRoutes {
   static Map<String, WidgetBuilder> get routes => {
         splashScreen: (_) => const SplashScreen(),
         mainScreen: (_) => const MainScreen(),
-        firstScreen: (_) => FirstScreen(),
-        secondScreen: (_) => SecondScreen(),
-        thurdScreen: (_) => ThurdScreen(),
+        firstScreen: (_) => const FirstScreen(),
+        secondScreen: (_) => const SecondScreen(),
+        thurdScreen: (_) => const ThurdScreen(),
       };
 }

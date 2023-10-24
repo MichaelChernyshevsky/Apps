@@ -37,7 +37,6 @@ class _SecondScreenState extends State<SecondScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
       appBar: AppBar(title: Text(ConstantText.secondScreen)),
       body: Column(
         children: [
@@ -52,8 +51,8 @@ class _SecondScreenState extends State<SecondScreen> {
                     child: Text(
                       userInput,
                       style: const TextStyle(
-                        fontSize: 18,
-                        color: Colors.red,
+                        fontSize: 30,
+                        color: Colors.black,
                       ),
                     ),
                   ),
@@ -63,8 +62,8 @@ class _SecondScreenState extends State<SecondScreen> {
                     child: Text(
                       answer,
                       style: const TextStyle(
-                        fontSize: 18,
-                        color: Colors.red,
+                        fontSize: 30,
+                        color: Colors.black,
                       ),
                     ),
                   )
@@ -74,70 +73,67 @@ class _SecondScreenState extends State<SecondScreen> {
           ),
           Expanded(
             flex: 3,
-            child: Container(
-              color: Colors.black,
-              child: GridView.builder(
-                padding: const EdgeInsets.all(15),
-                itemCount: buttons.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4,
-                ),
-                itemBuilder: (BuildContext context, int index) {
-                  if (index == 0) {
-                    return ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          userInput = '';
-                          answer = '0';
-                        });
-                      },
-                      child: Text(buttons[index]),
-                    );
-                  } else if (index == 1) {
-                    return ElevatedButton(
-                      onPressed: () {},
-                      child: Text(buttons[index]),
-                    );
-                  } else if (index == 2) {
-                    return ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          userInput += buttons[index];
-                        });
-                      },
-                      child: Text(buttons[index]),
-                    );
-                  } else if (index == 3) {
-                    return ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          userInput =
-                              userInput.substring(0, userInput.length - 1);
-                        });
-                      },
-                      child: Text(buttons[index]),
-                    );
-                  } else if (index == 18) {
-                    return ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          equalPressed();
-                        });
-                      },
-                      child: Text(buttons[index]),
-                    );
-                  } else {
-                    return ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          userInput += buttons[index];
-                        });
-                      },
-                      child: Text(buttons[index]),
-                    );
-                  }
-                },
+            child: GridView.builder(
+              padding: const EdgeInsets.all(15),
+              itemCount: buttons.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 4,
               ),
+              itemBuilder: (BuildContext context, int index) {
+                if (index == 0) {
+                  return ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        userInput = '';
+                        answer = '0';
+                      });
+                    },
+                    child: Text(buttons[index]),
+                  );
+                } else if (index == 1) {
+                  return ElevatedButton(
+                    onPressed: () {},
+                    child: Text(buttons[index]),
+                  );
+                } else if (index == 2) {
+                  return ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        userInput += buttons[index];
+                      });
+                    },
+                    child: Text(buttons[index]),
+                  );
+                } else if (index == 3) {
+                  return ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        userInput =
+                            userInput.substring(0, userInput.length - 1);
+                      });
+                    },
+                    child: Text(buttons[index]),
+                  );
+                } else if (index == 18) {
+                  return ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        equalPressed();
+                      });
+                    },
+                    child: Text(buttons[index]),
+                  );
+                } else {
+                  return ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        userInput += buttons[index];
+                      });
+                    },
+                    child: Text(buttons[index]),
+                  );
+                }
+              },
             ),
           ),
         ],
