@@ -7,7 +7,7 @@ void main() {
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider<NotesBloc>(create: (context) => NotesBloc()),
+        // BlocProvider<NotesBloc>(create: (context) => NotesBloc()),
       ],
       child: const MyApp(),
     ),
